@@ -194,3 +194,129 @@ if __name__ == "__main__":
     print(f"student1 > student2: {student1 > student2}")
     print(f"student1 < student2: {student1 < student2}")
     print(f"student1 == student2: {student1 == student2}")
+
+    # Задание №4: Полевые испытания
+
+    # Создаем по 2 экземпляра каждого класса
+    print("=== Создание экземпляров ===")
+
+    # Студенты
+    student1 = Student('Ruoy', 'Eman', 'female')
+    student1.courses_in_progress += ['Python', 'Git']
+    student1.finished_courses += ['Введение в программирование']
+    student1.grades = {'Python': [9, 10, 8], 'Git': [7, 9]}
+
+    student2 = Student('John', 'Doe', 'male')
+    student2.courses_in_progress += ['Python', 'Java']
+    student2.finished_courses += ['Основы программирования']
+    student2.grades = {'Python': [7, 8, 9], 'Java': [6, 7]}
+
+    # Лекторы
+    lecturer1 = Lecturer('Иван', 'Иванов')
+    lecturer1.courses_attached += ['Python', 'Git']
+    lecturer1.grades = {'Python': [9, 10, 8], 'Git': [7, 9]}
+
+    lecturer2 = Lecturer('Петр', 'Петров')
+    lecturer2.courses_attached += ['Python', 'Java']
+    lecturer2.grades = {'Python': [7, 8, 9], 'Java': [6, 7]}
+
+    # Ревьюеры
+    reviewer1 = Reviewer('Сергей', 'Сергеев')
+    reviewer1.courses_attached += ['Python', 'Git']
+
+    reviewer2 = Reviewer('Анна', 'Антонова')
+    reviewer2.courses_attached += ['Python', 'Java']
+
+    print("Создано 2 студента, 2 лектора, 2 ревьюера")
+    print()
+
+    # Проверка всех методов
+    print("=== Проверка методов ===")
+
+    # Метод rate_hw (ревьюер ставит оценки студенту)
+    print("1. rate_hw (ревьюер оценивает студента):")
+    reviewer1.rate_hw(student1, 'Python', 10)
+    reviewer1.rate_hw(student1, 'Git', 8)
+    reviewer2.rate_hw(student2, 'Python', 9)
+    reviewer2.rate_hw(student2, 'Java', 7)
+    print("Оценки добавлены")
+    print()
+
+    # Метод rate_lecture (студент оценивает лектора)
+    print("2. rate_lecture (студент оценивает лектора):")
+    student1.rate_lecture(lecturer1, 'Python', 9)
+    student1.rate_lecture(lecturer1, 'Git', 8)
+    student2.rate_lecture(lecturer2, 'Python', 7)
+    student2.rate_lecture(lecturer2, 'Java', 8)
+    print("Оценки добавлены")
+    print()
+
+    # Метод __str__
+    print("3. __str__ метод:")
+    print("Студент:")
+    print(student1)
+    print()
+    print("Лектор:")
+    print(lecturer1)
+    print()
+    print("Ревьюер:")
+    print(reviewer1)
+    print()
+
+    # Методы сравнения
+    print("4. Сравнение лекторов:")
+    print(f"   lecturer1 > lecturer2: {lecturer1 > lecturer2}")
+    print(f"   lecturer1 < lecturer2: {lecturer1 < lecturer2}")
+    print()
+
+    print("5. Сравнение студентов:")
+    print(f"   student1 > student2: {student1 > student2}")
+    print(f"   student1 < student2: {student1 < student2}")
+    print()
+
+    # Функции для подсчета средних оценок
+    print("=== Функции подсчета средних оценок ===")
+
+
+    def average_student_grade(students_list, course):
+        """
+        Подсчет средней оценки за домашние задания по всем студентам в рамках курса
+        """
+        all_grades = []
+        for student in students_list:
+            if course in student.grades:
+                all_grades.extend(student.grades[course])
+
+        if not all_grades:
+            return 0
+
+        return round(sum(all_grades) / len(all_grades), 1)
+
+
+    def average_lecturer_grade(lecturers_list, course):
+        """
+        Подсчет средней оценки за лекции всех лекторов в рамках курса
+        """
+        all_grades = []
+        for lecturer in lecturers_list:
+            if course in lecturer.grades:
+                all_grades.extend(lecturer.grades[course])
+
+        if not all_grades:
+            return 0
+
+        return round(sum(all_grades) / len(all_grades), 1)
+
+
+    # Проверка функций
+    students = [student1, student2]
+    lecturers = [lecturer1, lecturer2]
+
+    print(f"Средняя оценка студентов по курсу 'Python': {average_student_grade(students, 'Python')}")
+    print(f"Средняя оценка студентов по курсу 'Git': {average_student_grade(students, 'Git')}")
+    print(f"Средняя оценка студентов по курсу 'Java': {average_student_grade(students, 'Java')}")
+    print()
+
+    print(f"Средняя оценка лекторов по курсу 'Python': {average_lecturer_grade(lecturers, 'Python')}")
+    print(f"Средняя оценка лекторов по курсу 'Git': {average_lecturer_grade(lecturers, 'Git')}")
+    print(f"Средняя оценка лекторов по курсу 'Java': {average_lecturer_grade(lecturers, 'Java')}")
